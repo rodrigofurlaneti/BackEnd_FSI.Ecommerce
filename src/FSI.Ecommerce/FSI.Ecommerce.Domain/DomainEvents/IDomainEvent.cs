@@ -1,0 +1,7 @@
+﻿namespace FSI.Ecommerce.Domain.DomainEvents
+{
+    public interface IDomainEvent
+    {
+        DateTime OccurredAt { get; }
+    }
+}
