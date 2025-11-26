@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSI.Ecommerce.Domain", "FSI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSI.Ecommerce.Application", "FSI.Ecommerce.Application\FSI.Ecommerce.Application.csproj", "{516A7666-A118-4903-8510-AFB96119078E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSI.Ecommerce.Infrastructure", "FSI.Ecommerce.Infrastructure\FSI.Ecommerce.Infrastructure.csproj", "{5529FE5E-8277-4C64-B100-0CFEF9E48AC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSI.Ecommerce.Api", "FSI.Ecommerce.Api\FSI.Ecommerce.Api.csproj", "{42CD64E1-5B61-4F99-B526-D343F24A554F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{516A7666-A118-4903-8510-AFB96119078E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{516A7666-A118-4903-8510-AFB96119078E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{516A7666-A118-4903-8510-AFB96119078E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5529FE5E-8277-4C64-B100-0CFEF9E48AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5529FE5E-8277-4C64-B100-0CFEF9E48AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5529FE5E-8277-4C64-B100-0CFEF9E48AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5529FE5E-8277-4C64-B100-0CFEF9E48AC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42CD64E1-5B61-4F99-B526-D343F24A554F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42CD64E1-5B61-4F99-B526-D343F24A554F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42CD64E1-5B61-4F99-B526-D343F24A554F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42CD64E1-5B61-4F99-B526-D343F24A554F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

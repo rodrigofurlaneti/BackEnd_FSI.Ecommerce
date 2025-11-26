@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FSI.Ecommerce.Domain.Entities
+﻿namespace FSI.Ecommerce.Domain.Entities
 {
     public class AccountUser : BaseEntity
     {

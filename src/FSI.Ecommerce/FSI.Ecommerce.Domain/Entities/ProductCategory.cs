@@ -1,30 +1,29 @@
-﻿using FSI.Ecommerce.Domain.Aggregates;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FSI.Ecommerce.Domain.Entities
+﻿namespace FSI.Ecommerce.Domain.Entities
 {
-    public class ProductCategory : BaseEntity, IAggregateRoot
+    public class ProductCategory : BaseEntity
     {
-        public string Name { get; private set; } = null!;
-        public string Slug { get; private set; } = null!;
+        public string Name { get; private set; } = string.Empty;
+        public string Slug { get; private set; } = string.Empty;
         public long? ParentId { get; private set; }
 
-        public ProductCategory? Parent { get; private set; }
+        public ProductCategory? ParentCategory { get; private set; }
         public ICollection<ProductCategory> Children { get; private set; } = new List<ProductCategory>();
         public ICollection<Product> Products { get; private set; } = new List<Product>();
-
         private ProductCategory() { }
 
         public ProductCategory(string name, string slug, long? parentId = null)
-            : base()
         {
             Name = name;
             Slug = slug;
             ParentId = parentId;
+        }
+
+        public void Update(string name, string slug, long? parentId)
+        {
+            Name = name;
+            Slug = slug;
+            ParentId = parentId;
+            Touch();
         }
     }
 }

@@ -1,15 +1,10 @@
 ﻿using FSI.Ecommerce.Application.Dtos.Common;
 using FSI.Ecommerce.Application.Dtos.ProductCategories;
+using FSI.Ecommerce.Application.Interfaces.Services;
 using FSI.Ecommerce.Domain.Entities;
 using FSI.Ecommerce.Domain.Interfaces;
-using FSI.ECommerce.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FSI.Ecommerce.Application.Interfaces.Services.ProductCategories
+namespace FSI.Ecommerce.Application.Services
 {
     public sealed class ProductCategoryAppService : IProductCategoryAppService
     {
@@ -24,42 +19,62 @@ namespace FSI.Ecommerce.Application.Interfaces.Services.ProductCategories
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<IReadOnlyList<ProductCategoryDto>> GetAllAsync(
+            CancellationToken ct = default)
+        {
+            var entities = await _categoryRepository.GetAllAsync(ct);
+            return entities.Select(MapToDto).ToList();
+        }
+
         public async Task<PagedResultDto<ProductCategoryDto>> GetPagedAsync(
             int pageNumber,
             int pageSize,
             CancellationToken ct = default)
         {
-            var items = await _categoryRepository.GetPagedAsync(pageNumber, pageSize, ct);
-            var total = (await _categoryRepository.GetAllAsync(ct)).LongCount();
+            var entitiesPaged = await _categoryRepository.GetPagedAsync(pageNumber, pageSize, ct);
+            var all = await _categoryRepository.GetAllAsync(ct);
+            var total = all.LongCount();
 
-            var dtos = items.Select(MapToDto).ToList();
+            var dtos = entitiesPaged.Select(MapToDto).ToList();
 
-            return new PagedResultDto<ProductCategoryDto>(dtos, pageNumber, pageSize, total);
+            return new PagedResultDto<ProductCategoryDto>(
+                dtos,
+                pageNumber,
+                pageSize,
+                total
+            );
         }
 
-        public async Task<ProductCategoryDto?> GetByIdAsync(long id, CancellationToken ct = default)
+        public async Task<ProductCategoryDto?> GetByIdAsync(
+            long id,
+            CancellationToken ct = default)
         {
             var entity = await _categoryRepository.GetByIdAsync(id, ct);
             return entity is null ? null : MapToDto(entity);
         }
 
-        public async Task<ProductCategoryDto> CreateAsync(ProductCategoryDto dto, CancellationToken ct = default)
+        public async Task<ProductCategoryDto> CreateAsync(
+            CreateProductCategoryDto dto,
+            CancellationToken ct = default)
         {
             var entity = new ProductCategory(dto.Name, dto.Slug, dto.ParentId);
+
             await _categoryRepository.AddAsync(entity, ct);
             await _unitOfWork.SaveChangesAsync(ct);
+
             return MapToDto(entity);
         }
 
-        public async Task<ProductCategoryDto?> UpdateAsync(long id, ProductCategoryDto dto, CancellationToken ct = default)
+        public async Task<ProductCategoryDto?> UpdateAsync(
+            long id,
+            UpdateProductCategoryDto dto,
+            CancellationToken ct = default)
         {
             var entity = await _categoryRepository.GetByIdAsync(id, ct);
             if (entity is null)
                 return null;
 
-            entity.GetType().GetProperty("Name")?.SetValue(entity, dto.Name);
-            entity.GetType().GetProperty("Slug")?.SetValue(entity, dto.Slug);
-            entity.GetType().GetProperty("ParentId")?.SetValue(entity, dto.ParentId);
+            entity.Update(dto.Name, dto.Slug, dto.ParentId);
 
             await _categoryRepository.UpdateAsync(entity, ct);
             await _unitOfWork.SaveChangesAsync(ct);

@@ -1,8 +1,9 @@
-﻿using FSI.Ecommerce.Domain.ValueObjects;
+﻿using FSI.Ecommerce.Domain.Aggregates;
+using FSI.Ecommerce.Domain.ValueObjects;
 
 namespace FSI.Ecommerce.Domain.Entities
 {
-    public class OrderItem : BaseEntity
+    public class OrderItem : BaseEntity, IAggregateRoot
     {
         public long OrderId { get; private set; }
         public long ProductId { get; private set; }
@@ -10,18 +11,17 @@ namespace FSI.Ecommerce.Domain.Entities
         public Money UnitPrice { get; private set; } = null!;
         public int Quantity { get; private set; }
         public Money LineTotal { get; private set; } = null!;
-
         public Order Order { get; private set; } = null!;
-        public Product Product { get; private set; } = null!;
-
+        public Product? Product { get; private set; }
         private OrderItem() { }
 
-        public OrderItem(long orderId, long productId, string productName, Money unitPrice, int quantity)
-            : base()
+        public OrderItem(
+            long orderId,
+            long productId,
+            string productName,
+            Money unitPrice,
+            int quantity)
         {
-            if (quantity <= 0)
-                throw new ArgumentOutOfRangeException(nameof(quantity));
-
             OrderId = orderId;
             ProductId = productId;
             ProductName = productName;

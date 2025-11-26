@@ -1,6 +1,4 @@
-﻿using FSI.Ecommerce.Domain.Interfaces;
-
-namespace FSI.Ecommerce.Domain.Entities
+﻿namespace FSI.Ecommerce.Domain.Entities
 {
     public abstract class BaseEntity
     {
@@ -9,8 +7,8 @@ namespace FSI.Ecommerce.Domain.Entities
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
 
-        private readonly List<IDomainEvent> _domainEvents = new();
-        public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+        private readonly List<FSI.Ecommerce.Domain.DomainEvents.IDomainEvent> _domainEvents = new();
+        public IReadOnlyCollection<FSI.Ecommerce.Domain.DomainEvents.IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
         protected BaseEntity()
         {
@@ -35,7 +33,7 @@ namespace FSI.Ecommerce.Domain.Entities
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void AddDomainEvent(IDomainEvent eventItem)
+        public void AddDomainEvent(FSI.Ecommerce.Domain.DomainEvents.IDomainEvent eventItem)
         {
             _domainEvents.Add(eventItem);
         }
