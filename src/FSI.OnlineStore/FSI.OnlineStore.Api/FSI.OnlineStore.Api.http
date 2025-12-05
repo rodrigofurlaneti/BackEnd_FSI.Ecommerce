@@ -1,0 +1,6 @@
+@FSI.OnlineStore.Api_HostAddress = http://localhost:5179
+
+GET {{FSI.OnlineStore.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
